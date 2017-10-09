@@ -1,0 +1,6 @@
+framework module Pods_ray {
+  umbrella header "Pods-ray-umbrella.h"
+
+  export *
+  module * { export * }
+}
