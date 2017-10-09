@@ -23,7 +23,7 @@ class SceneViewController: UIViewController {
         //rotate camera by transforming the origin and all pixelRays, how?
 
         // Light
-        light = Point(x: -200, y: 350, z: 200-475)
+        light = Point(x: -200, y: 350, z: 200 - 475)
         
         // Spheres
         //shapes.append(Sphere(center: Point(x: -175, y: 0, z: -125-475), radius: 37, material: Material(color: Color(red: 0.5, green: 0.0, blue: 1.0), shininess: 0.4, reflectivity: 0.3), cameraOrigin: camera.origin))
@@ -32,11 +32,11 @@ class SceneViewController: UIViewController {
         
         //shapes.append(Sphere(center: Point(x: -125, y: 0, z: +125-475), radius: 37, material: Material(color: Color(red: 0.0, green: 0.0, blue: 1.0), shininess: 0.4, reflectivity: 0.3), cameraOrigin: camera.origin))
         
-        shapes.append(Sphere(center: Point(x: -75, y: 0, z: -75-475), radius: 37, material: Material(color: Color(red: 0.0, green: 1.0, blue: 0.0), shininess: 0.4, reflectivity: 0.9), cameraOrigin: camera.origin, id: "greenBall"))
+        shapes.append(Sphere(center: Point(x: -75, y: 0, z: -75 - 475), radius: 37, material: Material(color: Color(red: 0.0, green: 1.0, blue: 0.0), shininess: 0.4, reflectivity: 0.9), cameraOrigin: camera.origin, id: "greenBall"))
         
-        shapes.append(Sphere(center: Point(x: -25, y: 0, z: +25-475), radius: 37, material: Material(color: Color(red: 1.0, green: 1.0, blue: 1.0), shininess: 0.0, reflectivity: 0.0, opacity: 0.0, refractionIndex: 1.1), cameraOrigin: camera.origin, id: "glassBall"))
+        shapes.append(Sphere(center: Point(x: -25, y: 0, z: +25 - 475), radius: 37, material: Material(color: Color(red: 1.0, green: 1.0, blue: 1.0), shininess: 0.0, reflectivity: 0.0, opacity: 0.0, refractionIndex: 1.1), cameraOrigin: camera.origin, id: "glassBall"))
             
-        shapes.append(Sphere(center: Point(x: +25, y: 0, z: -175-475), radius: 37, material: Material(color: Color(red: 0.0, green: 0.0, blue: 1.0), shininess: 0.4, reflectivity: 0.3), cameraOrigin: camera.origin, id: "blueBall"))
+        shapes.append(Sphere(center: Point(x: +25, y: 0, z: -175 - 475), radius: 37, material: Material(color: Color(red: 0.0, green: 0.0, blue: 1.0), shininess: 0.4, reflectivity: 0.3), cameraOrigin: camera.origin, id: "blueBall"))
         
         //shapes.append(Sphere(center: Point(x: +75, y: 0, z: +125-475), radius: 37, material: Material(color: Color(red: 0.5, green: 0.0, blue: 1.0), shininess: 0.4, reflectivity: 0.3), cameraOrigin: camera.origin))
         
@@ -51,7 +51,6 @@ class SceneViewController: UIViewController {
         let background = Color(red: 0.05, green: 0.05, blue: 0.05)
         let scene = Scene(frame: self.view.frame, camera: camera, light: light, shapes: shapes, background: background)
         self.view.addSubview(scene)
-        
         
         //TODO
         //Rotate camera up a bit

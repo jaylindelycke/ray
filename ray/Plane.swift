@@ -29,7 +29,7 @@ class Plane: Shape {
         let denom = self.normal.dotProduct(with: ray.direction)
         if abs(denom) > 0.0001 { //if not bigger than nearly zero, the ray goes parallell to plane and never intersects, so return nil
             let centerToRay = self.center - ray.origin
-            let distance = centerToRay.dotProduct(with: self.normal) / denom;
+            let distance = centerToRay.dotProduct(with: self.normal) / denom
             // distance along ray until intersection
             if distance >= 0 { //if less than zero intersecion is behind camera, return nil
                 return distance - 0.0001

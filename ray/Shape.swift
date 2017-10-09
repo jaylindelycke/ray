@@ -11,7 +11,8 @@ import Foundation
 protocol Shape {
     var center: Point { get set }
     var material: Material { get set }
-    func intersection(ray: Ray) -> Double?
-    func normal(intersection: Point) -> Point?
     var id: String { get set }
+
+	func intersection(ray: Ray) -> Double?
+    func normal(intersection: Point) -> Point?
 }

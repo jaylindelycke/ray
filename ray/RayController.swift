@@ -8,7 +8,7 @@
 
 import Foundation
 
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+private func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
     switch (lhs, rhs) {
     case let (l?, r?):
         return l < r
@@ -20,7 +20,8 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 class RayController {
-static var index=0
+	static var index = 0
+	
     static func getColor(ray: Ray, light: Point, shapes: [Shape], camera: Camera, background: Color, retraceDepth: Int = 0) -> Color {
         // Check for ray impacting a shape
         print("check ray for intersection")
@@ -100,7 +101,6 @@ static var index=0
         //shadow thru transparent object shouldnt be completely black
         //make refraction ray refract and on oposite side too
     }
-
     
     static func getNearestIntersectionFor(ray: Ray, shapes: [Shape]) -> Intersection? {
         var nearestDistance: Double? = nil

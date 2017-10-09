@@ -71,4 +71,3 @@ extension Array where Element:Color {
         return Color(red: red, green: green, blue: blue)
     }
 }
-

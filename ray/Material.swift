@@ -15,7 +15,6 @@ class Material {
     var opacity: Double
     var refractionIndex: Double
 
-	// swiftlint:disable line_length
     init(color: Color, shininess: Double = 0, reflectivity: Double = 0, opacity: Double = 1, refractionIndex: Double = 1) {
         self.color = color
         self.shininess = shininess

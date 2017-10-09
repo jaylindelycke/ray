@@ -37,7 +37,7 @@ class Ray {
             return nil
         }
         let cosTransmission = sqrt(1 - sinTransmissionSquared)
-        let refraction = (incident * indexScale + (normal * (indexScale * cosIncident - cosTransmission))).normalized();
+        let refraction = (incident * indexScale + (normal * (indexScale * cosIncident - cosTransmission))).normalized()
         
         print("-construct refraction ray, direction z: \(refraction.z)")
         
