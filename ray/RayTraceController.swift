@@ -48,16 +48,15 @@ class RayTraceController {
         // Not obscured by shadow
         let intersectionToLightDirection = intersection.point.vector(to: sceneDelegate.light).normalized()
         let shadowRay = Ray(origin: intersection.point, direction: intersectionToLightDirection)
-        if getNearestIntersectionFor(ray: shadowRay) == nil {
+        if hasIntersection(ray: shadowRay) == false {
             
             // Diffuse shading
-            let intersectionPointToLightDirection = intersection.point.vector(to: sceneDelegate.light).normalized()
-            let diffuseShade = intersectionPointToLightDirection.dotProduct( with: intersection.normal )
+            let diffuseShade = intersectionToLightDirection.dotProduct(with: intersection.normal )
             //shadingColor = shapeColor * diffuseShade + shadingColor
             
             // Specular
-            if intersection.normal.dotProduct(with: intersectionPointToLightDirection) >= 0.0 {
-                let reflectedLight = -intersectionPointToLightDirection.reflected(across: intersection.normal)
+            if intersection.normal.dotProduct(with: intersectionToLightDirection) >= 0.0 {
+                let reflectedLight = -intersectionToLightDirection.reflected(across: intersection.normal)
                 let projection = reflectedLight.dotProduct(with: intersectionToCameraDirection)
                 let specularColor = shapeColor * pow(max(0.0, projection), 30)
                 let shininess = intersection.shape.material.shininess
@@ -131,6 +130,15 @@ class RayTraceController {
         
         return nil
     }
+
+	func hasIntersection(ray: Ray) -> Bool {
+		for shape in sceneDelegate.shapes {
+			if shape.intersection(ray: ray) != nil {
+				return true
+			}
+		}
+		return false
+	}
 
 }
 
