@@ -10,7 +10,7 @@
 		3133A48DC909607E2F15C417 /* Pods_ray.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 299D2737D4EF5B1A2432420B /* Pods_ray.framework */; };
 		D33411D51F070BD3005CEC91 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33411D41F070BD3005CEC91 /* Shape.swift */; };
 		D33411D81F070C13005CEC91 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33411D71F070C13005CEC91 /* Plane.swift */; };
-		D33411DB1F070D41005CEC91 /* RayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33411DA1F070D41005CEC91 /* RayController.swift */; };
+		D33411DB1F070D41005CEC91 /* RayTraceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33411DA1F070D41005CEC91 /* RayTraceController.swift */; };
 		D33411DE1F09851B005CEC91 /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33411DD1F09851B005CEC91 /* Material.swift */; };
 		D35BEE821D8F3C01007224FA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35BEE811D8F3C01007224FA /* Color.swift */; };
 		D35BEE841D9475F0007224FA /* Ray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35BEE831D9475F0007224FA /* Ray.swift */; };
@@ -19,7 +19,7 @@
 		D3E8FD721D78A414004B67CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E8FD701D78A414004B67CA /* Main.storyboard */; };
 		D3E8FD741D78A414004B67CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3E8FD731D78A414004B67CA /* Assets.xcassets */; };
 		D3E8FD771D78A414004B67CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3E8FD751D78A414004B67CA /* LaunchScreen.storyboard */; };
-		D3E8FD7F1D78B0D4004B67CA /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8FD7E1D78B0D4004B67CA /* Scene.swift */; };
+		D3E8FD7F1D78B0D4004B67CA /* Viewport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8FD7E1D78B0D4004B67CA /* Viewport.swift */; };
 		D3E8FD811D78B0E9004B67CA /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8FD801D78B0E9004B67CA /* Point.swift */; };
 		D3E8FD831D78B141004B67CA /* Sphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8FD821D78B141004B67CA /* Sphere.swift */; };
 		D3E8FD851D7E0691004B67CA /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E8FD841D7E0691004B67CA /* Camera.swift */; };
@@ -31,7 +31,7 @@
 		D07F1F5DE46C7D6866B49701 /* Pods-ray.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ray.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ray/Pods-ray.debug.xcconfig"; sourceTree = "<group>"; };
 		D33411D41F070BD3005CEC91 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		D33411D71F070C13005CEC91 /* Plane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
-		D33411DA1F070D41005CEC91 /* RayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RayController.swift; sourceTree = "<group>"; };
+		D33411DA1F070D41005CEC91 /* RayTraceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RayTraceController.swift; sourceTree = "<group>"; };
 		D33411DD1F09851B005CEC91 /* Material.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Material.swift; sourceTree = "<group>"; };
 		D35BEE811D8F3C01007224FA /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		D35BEE831D9475F0007224FA /* Ray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ray.swift; sourceTree = "<group>"; };
@@ -42,7 +42,7 @@
 		D3E8FD731D78A414004B67CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3E8FD761D78A414004B67CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3E8FD781D78A414004B67CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D3E8FD7E1D78B0D4004B67CA /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		D3E8FD7E1D78B0D4004B67CA /* Viewport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Viewport.swift; sourceTree = "<group>"; };
 		D3E8FD801D78B0E9004B67CA /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		D3E8FD821D78B141004B67CA /* Sphere.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sphere.swift; sourceTree = "<group>"; };
 		D3E8FD841D7E0691004B67CA /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		D33411D21F070AF8005CEC91 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D3E8FD7E1D78B0D4004B67CA /* Scene.swift */,
+				D3E8FD7E1D78B0D4004B67CA /* Viewport.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -127,7 +127,7 @@
 		D33411DC1F070D7E005CEC91 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D33411DA1F070D41005CEC91 /* RayController.swift */,
+				D33411DA1F070D41005CEC91 /* RayTraceController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -313,11 +313,11 @@
 				D33411DE1F09851B005CEC91 /* Material.swift in Sources */,
 				D35BEE821D8F3C01007224FA /* Color.swift in Sources */,
 				D3E8FD851D7E0691004B67CA /* Camera.swift in Sources */,
-				D33411DB1F070D41005CEC91 /* RayController.swift in Sources */,
+				D33411DB1F070D41005CEC91 /* RayTraceController.swift in Sources */,
 				D33411D51F070BD3005CEC91 /* Shape.swift in Sources */,
 				D3E8FD6F1D78A414004B67CA /* SceneViewController.swift in Sources */,
 				D3E8FD6D1D78A414004B67CA /* AppDelegate.swift in Sources */,
-				D3E8FD7F1D78B0D4004B67CA /* Scene.swift in Sources */,
+				D3E8FD7F1D78B0D4004B67CA /* Viewport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

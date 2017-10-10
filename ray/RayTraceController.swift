@@ -19,34 +19,39 @@ private func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
     }
 }
 
-class RayController {
-	static var index = 0
-	
-    static func getColor(ray: Ray, light: Point, shapes: [Shape], camera: Camera, background: Color, retraceDepth: Int = 0) -> Color {
+class RayTraceController {
+ 	var index = 0
+	weak var sceneDelegate: SceneViewController!
+
+	init(sceneDelegate: SceneViewController) {
+		self.sceneDelegate = sceneDelegate
+	}
+
+ func getColor(ray: Ray, retraceDepth: Int = 0) -> Color {
         // Check for ray impacting a shape
         print("check ray for intersection")
-        guard let intersection = getNearestIntersectionFor(ray: ray, shapes: shapes) else {
+        guard let intersection = getNearestIntersectionFor(ray: ray) else {
             print("no intersection, return background")
-            return background
+            return sceneDelegate.backgroundColor
         }
         print("intersection point z: \(intersection.point.z)")
 
         // Shading
         let shapeColor = intersection.shape.material.color
         let ambientShade = 1.0
-        let intersectionToCameraDirection = intersection.point.vector(to: camera.origin).normalized()
+        let intersectionToCameraDirection = intersection.point.vector(to: sceneDelegate.camera.origin).normalized()
 	
         // Ambient shading
         var shadingColor = shapeColor * ambientShade //TODO respect opacity?
         print("set shading ambient color from shape id: \(intersection.shape.id)")
         
         // Not obscured by shadow
-        let intersectionToLightDirection = intersection.point.vector(to: light).normalized()
+        let intersectionToLightDirection = intersection.point.vector(to: sceneDelegate.light).normalized()
         let shadowRay = Ray(origin: intersection.point, direction: intersectionToLightDirection)
-        if getNearestIntersectionFor(ray: shadowRay, shapes: shapes) == nil {
+        if getNearestIntersectionFor(ray: shadowRay) == nil {
             
             // Diffuse shading
-            let intersectionPointToLightDirection = intersection.point.vector(to: light).normalized()
+            let intersectionPointToLightDirection = intersection.point.vector(to: sceneDelegate.light).normalized()
             let diffuseShade = intersectionPointToLightDirection.dotProduct( with: intersection.normal )
             //shadingColor = shapeColor * diffuseShade + shadingColor
             
@@ -84,7 +89,7 @@ class RayController {
                     print("the point z to refract at: \(intersection.point.z) ")
 
                     //return Color(red: 1, green: 0, blue: 0)
-                    let refractionColor = getColor(ray: refractionRay, light: light, shapes: shapes, camera: camera, background: background, retraceDepth: retraceDepth + 1)
+                    let refractionColor = getColor(ray: refractionRay, retraceDepth: retraceDepth + 1)
                     shadingColor = refractionColor
                 }
             }
@@ -102,11 +107,11 @@ class RayController {
         //make refraction ray refract and on oposite side too
     }
     
-    static func getNearestIntersectionFor(ray: Ray, shapes: [Shape]) -> Intersection? {
+ 	func getNearestIntersectionFor(ray: Ray) -> Intersection? {
         var nearestDistance: Double? = nil
         var nearestPrimitive: Shape? = nil
         
-        for shape in shapes {
+        for shape in sceneDelegate.shapes {
             let distance = shape.intersection(ray: ray)
             if distance == nil {
                 continue
