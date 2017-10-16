@@ -35,11 +35,11 @@ class RayTraceController {
 
         // Shading
         let shapeColor = intersection.shape.material.color
-        let ambientShade = 1.0
         let intersectionToCameraDirection = intersection.point.vector(to: sceneDelegate.camera.origin).normalized()
 	
         // Ambient shading
-        var shadingColor = shapeColor * ambientShade //TODO respect opacity?
+		let ambientShade = 0.2
+		var shadingColor = shapeColor * ambientShade //TODO respect opacity?
 
         // Not obscured by shadow
         let intersectionToLightDirection = intersection.point.vector(to: sceneDelegate.light).normalized()
@@ -61,7 +61,7 @@ class RayTraceController {
         }
 
         // Retracing
-        if retraceDepth < 3 {
+        if retraceDepth < 10 {
             
             // Reflection
             let reflectivity = intersection.shape.material.reflectivity
@@ -74,13 +74,13 @@ class RayTraceController {
             // Refraction
             let opacity = intersection.shape.material.opacity
             if opacity < 1 {
-                print("shape is transparent, get refraction")
-                
+//                print("shape is transparent, get refraction")
+
                 if let refractionRay = ray.refract(at: intersection) {
-                    print("incoming ray x: \(ray.direction.x) | refracted ray x: \(refractionRay.direction.x)")
-                    print("incoming ray y: \(ray.direction.y) | refracted ray y: \(refractionRay.direction.y)")
-                    print("incoming ray z: \(ray.direction.z) | refracted ray z: \(refractionRay.direction.z)")
-                    print("the point z to refract at: \(intersection.point.z) ")
+//                    print("incoming ray x: \(ray.direction.x) | refracted ray x: \(refractionRay.direction.x)")
+//                    print("incoming ray y: \(ray.direction.y) | refracted ray y: \(refractionRay.direction.y)")
+//                    print("incoming ray z: \(ray.direction.z) | refracted ray z: \(refractionRay.direction.z)")
+//                    print("the point z to refract at: \(intersection.point.z) ")
 
                     //return Color(red: 1, green: 0, blue: 0)
                     let refractionColor = getColor(ray: refractionRay, retraceDepth: retraceDepth + 1)
@@ -88,7 +88,7 @@ class RayTraceController {
                 }
             }
         } else {
-            print("retrace depth reached, no more retracing")
+//            print("retrace depth reached, no more retracing")
         }
         
         return shadingColor

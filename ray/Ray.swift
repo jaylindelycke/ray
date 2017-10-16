@@ -30,7 +30,7 @@ class Ray {
         if cosIncident < 0 {
             cosIncident = -cosIncident
         } else {
-			print("turn normal and index")
+//			print("turn normal and index")
             normal = -normal
             indexScale = fromRefractionIndex / intoRefractionIndex
         }
@@ -42,32 +42,32 @@ class Ray {
         let cosTransmission = sqrt(1 - sinTransmissionSquared)
         let refraction = (incident * indexScale + (normal * (indexScale * cosIncident - cosTransmission))).normalized()
         
-        print("-construct refraction ray, direction z: \(refraction.z)")
-        
-        print("cosIncident: \(cosIncident)")
-        print("sinTransmissionSquared: \(sinTransmissionSquared))")
-        print("cosTransmission: \(cosTransmission))")
-        print("-")
+//        print("-construct refraction ray, direction z: \(refraction.z)")
+//
+//        print("cosIncident: \(cosIncident)")
+//        print("sinTransmissionSquared: \(sinTransmissionSquared))")
+//        print("cosTransmission: \(cosTransmission))")
+//        print("-")
 
         return Ray(origin: intersection.point + ((refraction * 0.001)), direction: refraction)
     }
 
 	func refract2(at intersection: Intersection) -> Ray? {
-		print("func refract()")
+//		print("func refract()")
 		var cosIncident = -self.direction.dotProduct(with: intersection.normal)
-		print("cosInsident (start): \(cosIncident)")
+//		print("cosInsident (start): \(cosIncident)")
 		let inside = cosIncident > 0 ? false : true
-		print("inside: \(inside)")
+//		print("inside: \(inside)")
 
 		var n = 1 / 1.0
 		var N = intersection.normal
 		if inside {
 			N = -N
 			n = 1.0 / 1
-			print("turn normal, turn refractionDiff, cosIncident): \(cosIncident)")
+//			print("turn normal, turn refractionDiff, cosIncident): \(cosIncident)")
 		} else {
 			cosIncident = -cosIncident
-			print("turn cosIncident, cosIncident: \(cosIncident)")
+//			print("turn cosIncident, cosIncident: \(cosIncident)")
 		}
 
 		let c2 = 1.0 - n * n * (1.0 - cosIncident * cosIncident)

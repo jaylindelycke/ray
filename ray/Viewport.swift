@@ -3,39 +3,41 @@
 //  ray
 //
 //  Created by Jay Lindelycke on 01/09/16.
-//  Copyright © 2016 Jay Lindelycke. All rights reserved.
-//
+//  Copyright © 2016 Jay Lindelycke. All rights reserved. //
 
 import Foundation
 import UIKit
 
 class Viewport: UIView {
-	var pixels: [[Pixel]]! = []
-	weak var cameraDelegate: Camera!
-	var raytraceController: RayTraceController!
+	var pixels: [Pixel]
+	weak var cameraDelegate: Camera?
+	var raytraceController: RayTraceController
+	var screenScale: CGFloat
+	let pixelSize = 1
 
 	init(cameraDelegate: Camera) {
+		self.pixels = []
 		self.cameraDelegate = cameraDelegate
 		self.raytraceController = RayTraceController(sceneDelegate: cameraDelegate.sceneDelegate)
-		let imageWidth = UIScreen.main.bounds.size.width
-		let imageHeight = imageWidth * 0.56
-		let imageAspectRatio = Double(imageWidth) / Double(imageHeight)
+		self.screenScale = UIScreen.main.scale
+		let pixelWidth = UIScreen.main.bounds.size.width * screenScale
+		let pixelHeight = pixelWidth * 0.56
+		let imageAspectRatio = Double(pixelWidth) / Double(pixelHeight)
 		let scale = tan(cameraDelegate.fieldOfView / 2 * .pi / 180)
 
-		for pixelY in 1 ... Int(imageHeight) {
-			var pixelRow: [Pixel] = []
-			for pixelX in 1 ... Int(imageWidth) {
-				let sceneX = (2 * ((Double(pixelX) + 0.5) / Double(imageWidth)) - 1) * scale * imageAspectRatio
-				let sceneY = (1 - 2 * ((Double(pixelY) + 0.5) / Double(imageHeight))) * scale
+		for pixelY in stride(from: 1, to: Int(pixelHeight), by: pixelSize) {
+			for pixelX in stride(from: 1, to: Int(pixelWidth), by: pixelSize) {
+				let sceneX = (2 * ((Double(pixelX) + 0.5) / Double(pixelWidth)) - 1) * scale * imageAspectRatio
+				let sceneY = (1 - 2 * ((Double(pixelY) + 0.5) / Double(pixelHeight))) * scale
 				let scenePoint = Point(x: Double(sceneX), y: Double(sceneY), z: -1.0)
 				let rayDirection = cameraDelegate.origin.vector(to: scenePoint).normalized()
-				pixelRow.append(Pixel(x: pixelX, y: pixelY, ray: Ray(origin: cameraDelegate.origin, direction: rayDirection)))
+				self.pixels.append(Pixel(x: pixelX, y: pixelY, ray: Ray(origin: cameraDelegate.origin, direction: rayDirection)))
 			}
-			pixels.append(pixelRow)
 		}
+		print("pixelWidth: \(pixelWidth)")
+		print("pixels.count: \(pixels.count)")
 
-		let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: imageWidth, height: imageHeight))
-
+		let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: pixelWidth, height: pixelHeight))
 		super.init(frame: frame)
 	}
 
@@ -45,26 +47,12 @@ class Viewport: UIView {
 
     override func draw(_ rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
-
-		for (index, bit) in stride(from: 6, through: 6, by: -1).enumerated() {
-			let size = Int(truncating: NSDecimalNumber(decimal: pow(2, bit)))
-			let start = index == 0 ? 0 : size
-
-			let offsetY = start //make y run twice on first row
-			for pixelY in stride(from: offsetY, to: pixels.count, by: size + start) {
-				let offsetX = pixelY % (size + start) == 0 ? start : 0
-				for pixelX in stride(from: offsetX, to: pixels[pixelY].count, by: size + offsetX) {
-
-					let pixel = pixels[pixelY][pixelX]
-					let color = raytraceController.getColor(ray: pixel.ray)
-
-					context?.setFillColor(CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: color.components())!)
-					context?.addRect(CGRect(x: pixel.x, y: pixel.y, width: size, height: size))
-					context?.fillPath()
-				}
-			}
-
-			self.setNeedsDisplay()
+		context?.scaleBy(x: 1 / screenScale, y: 1 / screenScale)
+		for pixel in pixels {
+			let color = raytraceController.getColor(ray: pixel.ray)
+			context?.setFillColor(CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: color.components())!)
+			context?.addRect(CGRect(x: pixel.x, y: pixel.y, width: pixelSize, height: pixelSize))
+			context?.fillPath()
 		}
     }
 
