@@ -16,7 +16,7 @@ class Sphere: Shape {
     var dotProductFromCamera: Double
     var id: String
 
-    init(center: Point, radius: Double, material: Material, cameraOrigin: Point, id: String) {
+    init(center: Point, radius: Double, material: Material, cameraOrigin: Point, id: String = "") {
         self.center = center
         self.radius = radius
         self.material = material

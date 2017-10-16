@@ -58,6 +58,13 @@ class Point {
         let z = first.z + second.z
         return Point(x: x, y: y, z: z)
     }
+
+	static func * (first: Point, second: Point) -> Point {
+		let x = first.x * second.x
+		let y = first.y * second.y
+		let z = first.z * second.z
+		return Point(x: x, y: y, z: z)
+	}
     
     static prefix func - (first: Point) -> Point {
         return Point(x: -first.x, y: -first.y, z: -first.z)

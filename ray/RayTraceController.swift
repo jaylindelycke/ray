@@ -27,14 +27,11 @@ class RayTraceController {
 		self.sceneDelegate = sceneDelegate
 	}
 
- func getColor(ray: Ray, retraceDepth: Int = 0) -> Color {
+	func getColor(ray: Ray, retraceDepth: Int = 0) -> Color {
         // Check for ray impacting a shape
-        print("check ray for intersection")
         guard let intersection = getNearestIntersectionFor(ray: ray) else {
-            print("no intersection, return background")
             return sceneDelegate.backgroundColor
         }
-        print("intersection point z: \(intersection.point.z)")
 
         // Shading
         let shapeColor = intersection.shape.material.color
@@ -43,8 +40,7 @@ class RayTraceController {
 	
         // Ambient shading
         var shadingColor = shapeColor * ambientShade //TODO respect opacity?
-        print("set shading ambient color from shape id: \(intersection.shape.id)")
-        
+
         // Not obscured by shadow
         let intersectionToLightDirection = intersection.point.vector(to: sceneDelegate.light).normalized()
         let shadowRay = Ray(origin: intersection.point, direction: intersectionToLightDirection)
@@ -52,27 +48,27 @@ class RayTraceController {
             
             // Diffuse shading
             let diffuseShade = intersectionToLightDirection.dotProduct(with: intersection.normal )
-            //shadingColor = shapeColor * diffuseShade + shadingColor
-            
+            shadingColor = shapeColor * diffuseShade + shadingColor
+
             // Specular
             if intersection.normal.dotProduct(with: intersectionToLightDirection) >= 0.0 {
                 let reflectedLight = -intersectionToLightDirection.reflected(across: intersection.normal)
                 let projection = reflectedLight.dotProduct(with: intersectionToCameraDirection)
                 let specularColor = shapeColor * pow(max(0.0, projection), 30)
                 let shininess = intersection.shape.material.shininess
-                //shadingColor = specularColor * shininess + shadingColor
+                shadingColor = specularColor * shininess + shadingColor
             }
         }
 
         // Retracing
-        if retraceDepth < 2 {
+        if retraceDepth < 3 {
             
             // Reflection
             let reflectivity = intersection.shape.material.reflectivity
             if reflectivity > 0 {
                 let reflectionRay = Ray(origin: intersection.point, direction: -intersectionToCameraDirection.reflected(across: intersection.normal))
-                //let reflectionColor = getColor(ray: reflectionRay, light: light, shapes: shapes, camera: camera, background: background, retraceDepth: retraceDepth + 1)
-                //shadingColor = reflectionColor * reflectivity + shadingColor * (1 - reflectivity)
+                let reflectionColor = getColor(ray: reflectionRay, retraceDepth: retraceDepth + 1)
+                shadingColor = reflectionColor * reflectivity + shadingColor * (1 - reflectivity)
             }
             
             // Refraction
@@ -80,7 +76,6 @@ class RayTraceController {
             if opacity < 1 {
                 print("shape is transparent, get refraction")
                 
-                //let incidence = Ray(origin: intersection.point - ray.direction, direction: ray.direction)
                 if let refractionRay = ray.refract(at: intersection) {
                     print("incoming ray x: \(ray.direction.x) | refracted ray x: \(refractionRay.direction.x)")
                     print("incoming ray y: \(ray.direction.y) | refracted ray y: \(refractionRay.direction.y)")
@@ -89,7 +84,7 @@ class RayTraceController {
 
                     //return Color(red: 1, green: 0, blue: 0)
                     let refractionColor = getColor(ray: refractionRay, retraceDepth: retraceDepth + 1)
-                    shadingColor = refractionColor
+                    shadingColor = refractionColor * (1 - opacity) + shadingColor * opacity
                 }
             }
         } else {
@@ -140,16 +135,4 @@ class RayTraceController {
 		return false
 	}
 
-}
-
-class Intersection {
-    var point: Point
-    var normal: Point
-    var shape: Shape
-    
-    init(point: Point, normal: Point, shape: Shape) {
-        self.point = point
-        self.normal = normal
-        self.shape = shape
-    }
 }

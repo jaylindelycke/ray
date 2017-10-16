@@ -14,7 +14,7 @@ class Plane: Shape {
     var normal: Point
     var id: String
     
-    init(center: Point, normal: Point, material: Material, id: String) {
+    init(center: Point, normal: Point, material: Material, id: String = "") {
         self.center = center
         self.material = material
         self.normal = normal
