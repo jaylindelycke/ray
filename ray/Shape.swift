@@ -14,5 +14,5 @@ protocol Shape {
     var id: String { get set }
 
 	func intersection(ray: Ray) -> Double?
-    func normal(intersection: Point) -> Point?
+	func normal(intersection: Point) -> Point?
 }

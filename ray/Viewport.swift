@@ -13,7 +13,7 @@ class Viewport: UIView {
 	weak var cameraDelegate: Camera?
 	var raytraceController: RayTraceController
 	var screenScale: CGFloat
-	let pixelSize = 1
+	let pixelSize = 1 //Raise this to 3 or more to render a quicker draft
 
 	init(cameraDelegate: Camera) {
 		self.pixels = []
