@@ -73,7 +73,7 @@ class SceneViewController: UIViewController {
 				color: Color(red: 1.0, green: 1.0, blue: 1.0),
 				shininess: 0.0,
 				reflectivity: 0.0,
-				opacity: 0.0, refractionIndex: 1.1),
+				opacity: 0.0, refractionIndex: 1.52),
 			cameraOrigin: camera.origin, id: "glassBall"))
 
 		shapes.append(Sphere(
