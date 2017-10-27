@@ -10,6 +10,7 @@ import UIKit
 
 class SceneViewController: UIViewController {
 	var backgroundColor: Color!
+	var refractionIndex: Double!
 	var light: Point!
 	var camera: Camera!
 	var shapes: [Shape] = []
@@ -18,6 +19,7 @@ class SceneViewController: UIViewController {
         super.viewDidLoad()
 
 		backgroundColor = Color(red: 0.05, green: 0.05, blue: 0.05)
+		refractionIndex = 1 //Air
 		light = Point(x: -200, y: 350, z: 200 - 475)
 		camera = Camera(sceneDelegate: self)
 

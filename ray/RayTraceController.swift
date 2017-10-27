@@ -73,22 +73,10 @@ class RayTraceController {
             
             // Refraction
             let opacity = intersection.shape.material.opacity
-            if opacity < 1 {
-//                print("shape is transparent, get refraction")
-
-                if let refractionRay = ray.refract(at: intersection) {
-//                    print("incoming ray x: \(ray.direction.x) | refracted ray x: \(refractionRay.direction.x)")
-//                    print("incoming ray y: \(ray.direction.y) | refracted ray y: \(refractionRay.direction.y)")
-//                    print("incoming ray z: \(ray.direction.z) | refracted ray z: \(refractionRay.direction.z)")
-//                    print("the point z to refract at: \(intersection.point.z) ")
-
-                    //return Color(red: 1, green: 0, blue: 0)
-                    let refractionColor = getColor(ray: refractionRay, retraceDepth: retraceDepth + 1)
-                    shadingColor = refractionColor * (1 - opacity) + shadingColor * opacity
-                }
+            if opacity < 1, let refractionRay = ray.refract(at: intersection, sceneRefractionIndex: sceneDelegate.refractionIndex) {
+				let refractionColor = getColor(ray: refractionRay, retraceDepth: retraceDepth + 1)
+				shadingColor = refractionColor * (1 - opacity) + shadingColor * opacity
             }
-        } else {
-//            print("retrace depth reached, no more retracing")
         }
         
         return shadingColor
