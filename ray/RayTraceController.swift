@@ -41,8 +41,8 @@ class RayTraceController {
 		let ambientShade = 0.2
 		var shadingColor = shapeColor * ambientShade //TODO respect opacity?
 
-        // Not obscured by shadow
-        let intersectionToLightDirection = intersection.point.vector(to: sceneDelegate.light).normalized()
+        // Not shaded by shape
+        let intersectionToLightDirection = intersection.point.vector(to: sceneDelegate.light.center).normalized()
         let shadowRay = Ray(origin: intersection.point, direction: intersectionToLightDirection)
         if hasIntersection(ray: shadowRay) == false {
             
@@ -58,6 +58,7 @@ class RayTraceController {
                 let shininess = intersection.shape.material.shininess
                 shadingColor = specularColor * shininess + shadingColor
             }
+
         }
 
         // Retracing
@@ -82,11 +83,9 @@ class RayTraceController {
         return shadingColor
         
         //TODO
-        //Add lightsource visibility (reflected). the light must have a physical form, like a plane
         //Add blur
         //Add antialias
         //shadow thru transparent object shouldnt be completely black
-        //make refraction ray refract and on oposite side too
     }
     
  	func getNearestIntersectionFor(ray: Ray) -> Intersection? {

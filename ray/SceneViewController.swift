@@ -11,7 +11,7 @@ import UIKit
 class SceneViewController: UIViewController {
 	var backgroundColor: Color!
 	var refractionIndex: Double!
-	var light: Point!
+	var light: Plane!
 	var camera: Camera!
 	var shapes: [Shape] = []
 
@@ -20,7 +20,9 @@ class SceneViewController: UIViewController {
 
 		backgroundColor = Color(red: 0.05, green: 0.05, blue: 0.05)
 		refractionIndex = 1 //Air
-		light = Point(x: -200, y: 350, z: 200 - 475)
+
+		setupLight()
+
 		camera = Camera(sceneDelegate: self)
 
 		setupShapes()
@@ -35,7 +37,17 @@ class SceneViewController: UIViewController {
 		self.view.addSubview(camera.viewport)
 	}
 
-	fileprivate func setupShapes() {
+	private func setupLight() {
+		let center = Point(x: -200, y: 350, z: 200 - 475)
+		light = Plane(
+			center: center,
+			normal: center.vector(to: Point(x: 0, y: 0, z: 0)).normalized(),
+			material: Material(color: Color(red: 255, green: 0, blue: 0))
+		)
+		//shapes.append(light) //TODO add light to shapes so it can be intersected and visible. But must make a rectangle, so the light plane doent cover whole background
+	}
+
+	private func setupShapes() {
 		// Spheres
 		shapes.append(Sphere(
 			center: Point(x: -175, y: 0, z: -125 - 475), radius: 37,

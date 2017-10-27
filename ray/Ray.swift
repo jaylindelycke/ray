@@ -42,6 +42,9 @@ class Ray {
 		}
 
 		return nil
+
+		//TODO
+		//Calculate .inside instead of setting it hardcoded (so it works with intersecting glass shapes)
 	}
 
 }
